@@ -1,0 +1,92 @@
+﻿@model CyberBlog.Models.MyViewModel
+@{
+    Layout = null; 
+    int i = 1;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] CyberBlog</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Security.styles.css" asp-append-version="true" />
+</head>
+<body>
+<div class="sidenav">
+    <div class="sidenav-content">
+         <div style="height:300px;">
+             <h3>Odabrani Članci</h3>
+             <ol class="gradient-list">
+                    @foreach (var item in @Model.Articles)
+                    {
+                        @if (item.Selected)
+                        {
+                            <li><b>@item.Title</b></li>
+                        }
+                    }
+              </ol>
+         </div>
+         <div >
+             <h3 style="margin-bottom:15px;">Poruke korisnika:</h3>
+            @foreach (var item in @Model.Messages)
+            {
+                <div><b>@item.Title </b></div>
+                <div class="p1" style="margin-bottom=10px;">@item.Body </div>
+                <br />
+            }
+         </div>
+    </div>
+
+</div>
+
+<div class="content">
+  <h2>Svi članci</h2>
+  <table class="table table-striped" style="width:800px; margin-top: 70px;">
+  <thead class="thead-light">
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">Naslov Članka</th>
+      <th scope="col">Odaberi/Ukloni</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach (var item in @Model.Articles) {
+        
+        <tr>
+            <th scope="row">@i .</th>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                    <form asp-action="UpdateActiveArticle" style="margin-left: 10px;">
+                        <input type="hidden" asp-for="@item.Id" />
+                        @if (@item.Selected == true)
+                        {
+                            <input type="submit" value="Ukloni" class="btn btn-light" />
+                        } else
+                        {
+                            <input type="submit" value="Odaberi" class="btn btn-light" />
+                        }
+                    </form>
+           </td>
+            <td>
+                <a asp-action="Delete" asp-route-id="@item.Id">Obriši</a>
+            </td>
+        </tr>
+        i++;
+}
+  </tbody>
+</table>
+<p>
+    <a asp-action="Create">Napravi novi</a>
+    @if(@Model.ErrorMessage != null){
+        <p class="text-danger">@Model.ErrorMessage</p>
+    }
+</p>
+</div>
+
+</body>
+</html>

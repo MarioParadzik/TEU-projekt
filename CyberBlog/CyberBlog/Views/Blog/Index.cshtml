@@ -1,0 +1,41 @@
+﻿@using CyberBlog.Helpers
+@model IEnumerable<CyberBlog.Entities.Article>
+@{
+   
+}
+
+<!--blog-section=========================-->
+    <section id="blog">
+        <!--heading----------->
+        <div class="blog-heading">
+            <h3>Cyber Blog</h3>
+            <span>Nedavni članci</span>
+        </div>
+
+        <!--blog -container---------------->
+        <div class="blog-container">
+            @foreach (var item in Model) {
+            <div class="blog-box">
+                <!--img---->
+                <div class="blog-img">
+                    <img alt="blog" src="~/images/@item.CoverImage" style ="height:200px;" asp-append-version="true">
+                </div>
+
+                <!--text--->
+                <div class="blog-text">
+                    <span>@Html.Encode(DateConverter.ToDate(@item.DatePublished))/ @item.Topic</span>
+                    <a asp-controller="Article" asp-action="Text" asp-route-id=@item.Id class="blog-title">@item.Title</a>
+                    <p>@item.Description</p>
+                    <a asp-controller="Article" asp-action="Text" asp-route-id=@item.Id>Pročitaj više</a>
+                  </div>
+            </div>
+            
+            }
+        </div>
+    </section>
+    <div class="pisiteNam">Pišite nam o temama o kojima biste voljeli čuti više</div>
+    <form asp-action="SendMessage">      
+      <input name="Title" type="text" class="feedback-input" placeholder="Naslov" />   
+      <textarea name="Body" class="feedback-input" placeholder="Poruka"></textarea>
+      <input type="submit" value="Pošalji"/>
+    </form>

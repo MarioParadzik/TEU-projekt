@@ -1,0 +1,80 @@
+﻿@model CyberBlog.Entities.Article
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] CyberBlog</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/create.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Security.styles.css" asp-append-version="true" />
+</head>
+<body>
+<h4>Napiši Članak</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label">Title</label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Topic" class="control-label">Topic</label>
+                <input asp-for="Topic" class="form-control" />
+                <span asp-validation-for="Topic" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label">Description</label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">                
+                    <label asp-for="CoverImage" class="control-label">Cover Image</label>
+                    <input asp-for="CoverImage" type="file" class="form-control" />
+                    <span asp-validation-for="CoverImage" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Paragraph1" class="control-label">Paragraph 1</label>
+                <input asp-for="Paragraph1" class="form-control" />
+                <span asp-validation-for="Paragraph1" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Paragraph2" class="control-label">Paragraph 2</label>
+                <input asp-for="Paragraph2" class="form-control" />
+                <span asp-validation-for="Paragraph2" class="text-danger"></span>
+            </div> 
+            <div class="form-group">
+                    <label asp-for="Image1" class="control-label">Paragraph Image</label>
+                    <input asp-for="Image1" type="file" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Paragraph3" class="control-label">Paragraph 3</label>
+                <input asp-for="Paragraph3" class="form-control" />
+            </div> 
+            <div class="form-group">
+                <label asp-for="Paragraph4" class="control-label">Paragraph 4</label>
+                <input asp-for="Paragraph4" class="form-control" />
+            </div> 
+            <div class="form-group">
+                <input type="submit" value="Stvori" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="backToList">
+    <a asp-action="Index">Nazad na listu</a>
+</div>
+
+</body>
+</html>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
